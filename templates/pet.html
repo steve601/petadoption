@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pet adoption</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Pet Adoption Prediction</h1>
+    <div class="container">
+        <form action='/predict' method='POST'>
+            <div class="form-group">
+                <label for="pet">Pet type</label>
+                <select id="pet" name="pet">
+                    <option value="Bird">Bird</option>
+                    <option value="Rabbit">Rabbit</option>
+                    <option value="Dog">Dog</option>
+                    <option value="Cat">Cat</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="breed">Breed</label>
+                <select id="breed" name="breed">
+                    <option value="Parakeet">Parakeet</option>
+                    <option value="Rabbit">Rabbit</option>
+                    <option value="Golden Retriever">Golden retriever</option>
+                    <option value="Siamese">Siamese</option>
+                    <option value="Persian">Persian</option>
+                    <option value="Poodle">Poodle</option>
+                    <option value="Labrador">Labrador</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="age">Age(months)</label>
+                <input type="number" id="age" name="age" min=1 max=100 value="{{ request.form.age if request.form else '' }}" required>
+            </div>
+            <div class="form-group">
+                <label for="color">Color</label>
+                <select id="color" name="color">
+                    <option value="White">White</option>
+                    <option value="Orange">Orange</option>
+                    <option value="Gray">Gray</option>
+                    <option value="Black">Black</option>
+                    <option value="Brown">Brown</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="size">Size</label>
+                <select id="size" name="size">
+                    <option value=0>Small</option>
+                    <option value=1>Medium</option>
+                    <option value=2>Large</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="weight">Weight (kg)</label>
+                <input type="number" id="weight" name="weight" step="0.1" min=1 max=50 value="{{ request.form.weight if request.form else '' }}" required>
+            </div>
+            <div class="form-group">
+                <label for="vac">Vaccinated?</label>
+                <select id="vac" name="vac">
+                    <option value=1>Yes</option>
+                    <option value=0>No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="hth">Health condition?</label>
+                <select id="hth" name="hth">
+                    <option value=1>Healthy</option>
+                    <option value=0>Medical condition</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="fee">Adoption fee($)</label>
+                <input type="number" id="fee" name="fee" min=1 value="{{ request.form.fee if request.form else '' }}" required>
+            </div>
+            <div class="form-group">
+                <label for="own">Previously owned?</label>
+                <select id="own" name="own">
+                    <option value=1>Yes</option>
+                    <option value=0>No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit">Predict</button>
+            </div>
+        </form>
+        <div class="result">
+            <h3>{{ text }}</h3>
+        </div>
+    </div>
+
+</body>
+</html>
